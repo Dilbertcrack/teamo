@@ -14,7 +14,6 @@
             line-height: 1.6;
             background-color: #fff0f3;
             color: #333;
-            text-align: center;
         }
 
         header {
@@ -30,25 +29,69 @@
             margin: 0;
         }
 
+        nav {
+            background-color: #ffb3c6;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #ff4777;
+        }
+
         .contenido {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 2rem;
         }
 
+        .tarjeta {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .tarjeta h2 {
+            color: #ff4777;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .pregunta-final {
+            font-size: 2rem;
+            text-align: center;
+            background: #ff758c;
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
         .boton-musica {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
             background-color: #ff4777;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1.2rem;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            border-radius: 10px;
-            margin-top: 20px;
         }
 
         .boton-musica:hover {
-            background-color: #d9365a;
+            background-color: #ff1f5a;
         }
 
         footer {
@@ -60,62 +103,77 @@
             bottom: 0;
             width: 100%;
         }
-
-        /* Oculta el iframe del video */
-        #musicaYT {
-            width: 0;
-            height: 0;
-            border: none;
-        }
     </style>
 </head>
 <body>
     <header>
         <h1>Para el Amor de mi Vida</h1>
         <p>Hay algo importante que quiero decirte...</p>
+        <button class="boton-musica" onclick="toggleMusica()">🎵 Reproducir Música</button>
+        <audio id="musica" loop>
+            <source src="tu-musica.mp3" type="audio/mpeg">
+        </audio>
     </header>
 
+    <nav>
+        <a onclick="mostrarSeccion('inicio')">Inicio</a>
+        <a onclick="mostrarSeccion('razones')">Razones</a>
+        <a onclick="mostrarSeccion('pregunta')">La Pregunta</a>
+    </nav>
+
     <div class="contenido">
-        <h2>Una Canción Especial Para Ti 🎶</h2>
-        <button id="botonMusica" class="boton-musica" onclick="toggleMusica()">🎵 Reproducir Música</button>
+        <div id="inicio" class="tarjeta">
+            <h2>Mi Corazón Te Eligió</h2>
+            <p>Desde el primer momento que te vi, supe que eras especial... y eso me encanto 😍</p>
+        </div>
+
+        <div id="razones" class="tarjeta">
+            <h2>Las Razones Por Las Que Me Encantas</h2>
+            <ul>
+                <li>Tu hermosa sonrisa ilumina hasta el día más oscuro</li>
+                <li>La forma en que me miras me hace sentir especial</li>
+                <li>Tu dulzura y bondad hacen que me derrita por dentro</li>
+                <li>Eres muy amable conmigo</li>
+                <li>Y me encanta la forma de como eres</li>
+            </ul>
+        </div>
+
+        <div id="pregunta" class="tarjeta">
+            <div class="pregunta-final">
+                ¿Quieres ser mi novia?
+            </div>
+            <p>Porque me pareces una niña muy especial para mi y me encantas ❤️</p>
+        </div>
     </div>
 
     <footer>
         <p>Con todo mi amor ❤️ ATT: Tu Blanquito</p>
     </footer>
 
-    <!-- Video oculto de YouTube -->
-    <iframe id="musicaYT" src="https://www.youtube.com/embed/YOUTUBE_ID?enablejsapi=1&loop=1&playlist=F1_aOX0acbY" frameborder="0"></iframe>
-
     <script>
-        let player;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('musicaYT', {
-                events: {
-                    'onReady': onPlayerReady
-                }
-            });
+        function mostrarSeccion(id) {
+            let secciones = document.querySelectorAll('.tarjeta');
+            secciones.forEach(seccion => seccion.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
         }
 
-        function onPlayerReady(event) {
-            console.log("YouTube API cargada");
-        }
+        // Mostrar la sección "Inicio" por defecto
+        mostrarSeccion('inicio');
+
+        let musica = document.getElementById('musica');
+        let botonMusica = document.querySelector('.boton-musica');
+        let musicaEnReproduccion = false;
 
         function toggleMusica() {
-            if (player.getPlayerState() === 1) { 
-                player.pauseVideo();
-                document.getElementById('botonMusica').textContent = '🎵 Reproducir Música';
+            if (musicaEnReproduccion) {
+                musica.pause();
+                botonMusica.textContent = '🎵 Reproducir Música';
             } else {
-                player.playVideo();
-                document.getElementById('botonMusica').textContent = '⏸️ Pausar Música';
+                musica.play();
+                botonMusica.textContent = '⏸️ Pausar Música';
             }
+            musicaEnReproduccion = !musicaEnReproduccion;
         }
-
-        // Cargar la API de YouTube
-        let tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
     </script>
 </body>
 </html>
