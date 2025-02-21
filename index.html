@@ -78,6 +78,41 @@
             padding: 2rem;
         }
 
+        .botones {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .boton {
+            background-color: #ff4777;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .boton:hover {
+            background-color: #d9365a;
+        }
+
+        #mensaje-container {
+            text-align: center;
+            display: none;
+            margin-top: 20px;
+        }
+
+        textarea {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ff4777;
+            resize: none;
+            font-size: 1rem;
+        }
+
         footer {
             background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
             color: white;
@@ -104,7 +139,7 @@
     <div class="contenido">
         <div id="inicio" class="tarjeta">
             <h2>Mi Corazón Te Eligió</h2>
-            <p>Desde el primer momento que te vi, supe que eras especial... y eso me encanto 😍</p>
+            <p>Desde el primer momento que te vi, supe que eras especial... y eso me encantó 😍</p>
         </div>
 
         <div id="razones" class="tarjeta">
@@ -114,15 +149,30 @@
                 <li>La forma en que me miras me hace sentir especial</li>
                 <li>Tu dulzura y bondad hacen que me derrita por dentro</li>
                 <li>Eres muy amable conmigo</li>
-                <li>Y me encanta la forma de como eres</li>
+                <li>Y me encanta la forma en que eres</li>
             </ul>
         </div>
 
         <div id="pregunta" class="tarjeta">
             <div class="pregunta-final">
-                ¿Quieres ser mi novia?
+                ¿Quieres ser mi novia? ❤️
             </div>
-            <p>Porque me pareces una niña muy especial para mi y me encantas ❤️</p>
+            <p style="text-align:center;">Porque me pareces una niña muy especial para mí y me encantas ❤️</p>
+            
+            <div class="botones">
+                <button class="boton" onclick="confirmarSi()">Sí ❤️</button>
+                <button class="boton" onclick="mostrarMensaje()">Podría ser... 🤔</button>
+            </div>
+
+            <div id="mensaje-container">
+                <p>¿Por qué? 🥺</p>
+                <form action="https://formspree.io/f/xnqegpqy" method="POST">
+                    <textarea name="mensaje" rows="4" placeholder="Escribe tu razón aquí..."></textarea>
+                    <input type="hidden" name="_replyto" value="magodilbert@gmail.com">
+                    <br><br>
+                    <button type="submit" class="boton">Enviar Mensaje 📩</button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -137,8 +187,17 @@
             document.getElementById(id).style.display = 'block';
         }
 
+        function confirmarSi() {
+            alert("¡Sabía que dirías que sí! ❤️😍");
+        }
+
+        function mostrarMensaje() {
+            document.getElementById("mensaje-container").style.display = "block";
+        }
+
         // Mostrar la sección "Inicio" por defecto
         mostrarSeccion('inicio');
     </script>
 </body>
 </html>
+
